@@ -1,0 +1,79 @@
+:root {
+    --primary-color: #2563eb;
+    --bg-light: #f8fafc;
+    --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-light);
+    color: #1e293b;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar {
+    background-color: #0f172a !important;
+    padding: 1rem 0;
+}
+
+.tracking-tight {
+    letter-spacing: -0.025em;
+}
+
+.product-card {
+    border: none;
+    border-radius: 12px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    overflow: hidden;
+    height: 100%;
+    background: #fff;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--card-shadow);
+}
+
+.card-img-container {
+    height: 200px;
+    background: #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.card-img-top {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+}
+
+.category-badge {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.35em 0.65em;
+    background: #e2e8f0;
+    color: #475569;
+}
+
+/* Skeleton Loader */
+.skeleton {
+    background: #e2e8f0;
+    background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+    border-radius: 8px;
+    background-size: 200% 100%;
+    animation: 1.5s shine linear infinite;
+}
+
+@keyframes shine {
+    to { background-position-x: -200%; }
+}
+
+.footer {
+    margin-top: auto;
+}
