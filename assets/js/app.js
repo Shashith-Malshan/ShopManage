@@ -83,6 +83,21 @@ document.addEventListener('DOMContentLoaded', () => {
         productForm.reset();
     });
 
+    window.deleteProduct = async (id) => {
+        if (!confirm('Are you sure you want to delete this product?')) return;
+
+        try {
+            const res = await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+            if (res.ok) {
+                products = products.filter(p => p.id != id);
+                renderProducts(products);
+                alert('Product Deleted');
+            }
+        } catch (err) {
+            console.error('Delete failed:', err);
+        }
+    };
+
 
     function renderProducts(data) {
         productGrid.innerHTML = '';
