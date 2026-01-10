@@ -31,6 +31,58 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    productForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const id = document.getElementById('productId').value;
+        const productData = {
+            title: document.getElementById('title').value,
+            price: parseFloat(document.getElementById('price').value),
+            category: document.getElementById('category').value,
+            thumbnail: document.getElementById('thumbnail').value
+        };
+
+        if (id) {
+            // UPDATE Logic
+            try {
+                const res = await fetch(`${API_URL}/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(productData)
+                });
+                const updatedProduct = await res.json();
+                
+                // Update local state and UI
+                products = products.map(p => p.id == id ? { ...p, ...productData } : p);
+                renderProducts(products);
+                alert('Product Updated Successfully!');
+            } catch (err) {
+                console.error('Update failed:', err);
+            }
+        } else {
+            // CREATE Logic
+            try {
+                const res = await fetch(`${API_URL}/add`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(productData)
+                });
+                const newProduct = await res.json();
+                
+                // DummyJSON returns a static ID 101, so we simulate uniqueness for UI
+                const displayProduct = { ...newProduct, id: Date.now() };
+                products.unshift(displayProduct);
+                renderProducts(products);
+                alert('Product Added Successfully!');
+            } catch (err) {
+                console.error('Add failed:', err);
+            }
+        }
+        
+        productModal.hide();
+        productForm.reset();
+    });
+
 
     function renderProducts(data) {
         productGrid.innerHTML = '';
