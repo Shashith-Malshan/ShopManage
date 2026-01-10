@@ -1,9 +1,10 @@
+
 document.addEventListener('DOMContentLoaded', () => {
-    // State Management
+   
     let products = [];
     const API_URL = 'https://dummyjson.com/products';
     
-    // UI Elements
+    
     const productGrid = document.getElementById('productGrid');
     const loader = document.getElementById('loader');
     const productForm = document.getElementById('productForm');
@@ -11,10 +12,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalTitle = document.getElementById('modalTitle');
     const yearSpan = document.getElementById('year');
     
-    // Initialize
+    
     yearSpan.textContent = new Date().getFullYear();
     fetchProducts();
 
+    // --- CRUD OPERATIONS ---
     async function fetchProducts() {
         showLoader();
         try {
@@ -43,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         if (id) {
-            // UPDATE Logic
+           
             try {
                 const res = await fetch(`${API_URL}/${id}`, {
                     method: 'PUT',
@@ -52,7 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
                 const updatedProduct = await res.json();
                 
-                // Update local state and UI
                 products = products.map(p => p.id == id ? { ...p, ...productData } : p);
                 renderProducts(products);
                 alert('Product Updated Successfully!');
@@ -60,7 +61,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.error('Update failed:', err);
             }
         } else {
-            // CREATE Logic
             try {
                 const res = await fetch(`${API_URL}/add`, {
                     method: 'POST',
@@ -69,7 +69,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
                 const newProduct = await res.json();
                 
-                // DummyJSON returns a static ID 101, so we simulate uniqueness for UI
                 const displayProduct = { ...newProduct, id: Date.now() };
                 products.unshift(displayProduct);
                 renderProducts(products);
@@ -151,8 +150,6 @@ document.addEventListener('DOMContentLoaded', () => {
         productModal.show();
     });
 
-
-
     function showLoader() {
         loader.innerHTML = Array(4).fill(0).map(() => `
             <div class="col-12 col-md-3 mb-4">
@@ -162,9 +159,9 @@ document.addEventListener('DOMContentLoaded', () => {
         loader.classList.remove('d-none');
         productGrid.classList.add('d-none');
     }
+
     function hideLoader() {
         loader.classList.add('d-none');
         productGrid.classList.remove('d-none');
     }
-
 });
