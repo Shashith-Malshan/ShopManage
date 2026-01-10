@@ -63,6 +63,27 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    window.openEditModal = (id) => {
+        const product = products.find(p => p.id == id);
+        if (!product) return;
+
+        modalTitle.textContent = 'Edit Product';
+        document.getElementById('productId').value = product.id;
+        document.getElementById('title').value = product.title;
+        document.getElementById('price').value = product.price;
+        document.getElementById('category').value = product.category;
+        document.getElementById('thumbnail').value = product.thumbnail;
+        
+        productModal.show();
+    };
+
+    document.getElementById('btnAddNew').addEventListener('click', () => {
+        modalTitle.textContent = 'Add New Product';
+        productForm.reset();
+        document.getElementById('productId').value = '';
+        productModal.show();
+    });
+
 
 
     function showLoader() {
