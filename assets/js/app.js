@@ -26,5 +26,9 @@ document.addEventListener('DOMContentLoaded', () => {
         loader.classList.remove('d-none');
         productGrid.classList.add('d-none');
     }
+    function hideLoader() {
+        loader.classList.add('d-none');
+        productGrid.classList.remove('d-none');
+    }
 
 });
