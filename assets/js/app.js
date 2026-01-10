@@ -15,4 +15,16 @@ document.addEventListener('DOMContentLoaded', () => {
     yearSpan.textContent = new Date().getFullYear();
     fetchProducts();
 
+
+
+    function showLoader() {
+        loader.innerHTML = Array(4).fill(0).map(() => `
+            <div class="col-12 col-md-3 mb-4">
+                <div class="skeleton" style="height: 300px; width: 100%;"></div>
+            </div>
+        `).join('');
+        loader.classList.remove('d-none');
+        productGrid.classList.add('d-none');
+    }
+
 });
