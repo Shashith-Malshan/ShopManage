@@ -15,6 +15,22 @@ document.addEventListener('DOMContentLoaded', () => {
     yearSpan.textContent = new Date().getFullYear();
     fetchProducts();
 
+    async function fetchProducts() {
+        showLoader();
+        try {
+            const response = await fetch(`${API_URL}?limit=10`);
+            if (!response.ok) throw new Error('Network response was not ok');
+            const data = await response.json();
+            products = data.products;
+            renderProducts(products);
+        } catch (error) {
+            console.error('Error fetching products:', error);
+            productGrid.innerHTML = `<div class="alert alert-danger">Failed to load inventory. Please try again later.</div>`;
+        } finally {
+            hideLoader();
+        }
+    }
+
 
 
     function showLoader() {
